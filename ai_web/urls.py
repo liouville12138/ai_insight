@@ -6,4 +6,5 @@ urlpatterns = [
    path('', views.index, name='ai_web'),
    path('image_recognition/', views.image_recognition, name='image_recognition'),
    path('upload_file/', views.upload_file, name='upload_file'),
+   path('display_pmi_log/', views.display_pmi_log, name='display_pmi_log'),
 ]
