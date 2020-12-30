@@ -371,60 +371,31 @@
 
             });
         }
-        //初始化图表
-        var myChart = echarts.init(document.getElementById('line-echart'));
-      
-
         function PmiLog() {
             $.ajax({
-                url: "/ai_web/display_pmi_log/",
+                url: "/log_insight/display_pmi_log/",
                 method: "GET",
                 data: { log_id: "1" },
                 success: function (arg) {
-                    console.log(arg);
-                    option = {
-                        title: {
-                            text: 'IV曲线'
-                        },
-                        tooltip: {
-                            trigger: 'axis'
-                        },
-                        legend: {
-                            data: ['PV1']
-                        },
-                        grid: {
-                            left: '3%',
-                            right: '4%',
-                            bottom: '3%',
-                            containLabel: true
-                        },
-                        toolbox: {
-                            feature: {
-                                saveAsImage: {}
-                            }
-                        },
-                        xAxis: {
-                            type: 'category',
-                            boundaryGap: false,
-                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-                        },
-                        yAxis: {
-                            type: 'value'
-                        },
-                        series: [
-                            {
-                                name: 'PV1',
-                                type: 'line',
-                                data: [120, 132, 101, 134, 90, 230, 210]
-                            }
-                        ]
-                    };
                     // 使用刚指定的配置项和数据显示图表。
-                    myChart.setOption(option);
+                    var dataObj=JSON.parse(arg);//转换为json对象 
+                    console.log(dataObj[0]);
+                    Morris.Area({
+                        element: 'morris-area-chart',
+                        data: dataObj[0].PV1,
+                        xkey: '电压',
+                        ykeys: ['电流'],
+                        labels: ['电流'],
+                        parseTime: false,
+                        pointSize: 2,
+                        hideHover: 'auto',
+                        resize: true,
+                        axes:true,
+                        grid:true
+                    });
                 }
             })
         }
-
     </script>
 </body>
 
